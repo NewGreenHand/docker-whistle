@@ -23,7 +23,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
                              perl \
                              openssl \
     && rm -rf /var/cache/apk/* \
-    && npm install -g whistle --registry=https://registry.npm.taobao.org \
+    && npm install -g whistle \
     && cp -f ${PROXY_DIR}/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh \
     && chmod 777 /usr/local/bin/docker-entrypoint.sh
 
