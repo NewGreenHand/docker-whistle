@@ -29,13 +29,15 @@ jobs:
       - name: Build dockerfile (with push)
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PLATFORMS: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6
           IMAGE_NAME: fillpit/whistle
           IMAGE_TAG: lts-alpine
           DOCKERFILE: Dockerfile
           FILE_PATH: .
         run: |
-          docker build \
+          docker buildx build \
+          --platform ${PLATFORMS} \
           --output "type=image,push=true" \
-          -t ${IMAGE_NAME}:$(date +%s) \
+          -t ${IMAGE_NAME}:${IMAGE_TAG} \
           -f ${DOCKERFILE} \
           ${FILE_PATH}
